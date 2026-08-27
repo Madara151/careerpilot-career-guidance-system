@@ -328,10 +328,3 @@ Potential improvements include:
 - Environment-based configuration
 - Automated testing and CI/CD
 
-## License
-
-Add the license you intend to use before publishing the repository.
-
----
-
-Developed as a career guidance and skill development system using Flask, MySQL, and machine-learning-based similarity matching.
