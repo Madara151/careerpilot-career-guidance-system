@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPilot - Login</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+    <style>
+        .alert{
+            padding:14px 18px;
+            border-radius:12px;
+            margin-top:25px;
+            font-size:15px;
+        }
+        .alert-danger{
+            background:#2a1414;
+            color:#F87171;
+            border:1px solid rgba(248,113,113,.3);
+        }
+        .alert-success{
+            background:#10291F;
+            color:#34D399;
+            border:1px solid rgba(52,211,153,.3);
+        }
+    </style>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Left Panel -->
+    <div class="left-panel">
+
+        <a href="/" class="back-home">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Home
+        </a>
+
+        <div class="logo">
+            <i class="fa-solid fa-compass"></i>
+            <span>CareerPilot</span>
+        </div>
+
+        <p class="welcome">WELCOME BACK</p>
+
+        <h1>
+            Your career journey<br>
+            continues here.
+        </h1>
+
+        <p class="description">
+            Pick up right where you left off. Your roadmap,
+            skill progress, and AI recommendations are waiting.
+        </p>
+
+        <div class="features">
+
+            <div class="feature-box">
+                <i class="fa-solid fa-file-lines"></i>
+                <div>
+                    <h3>Resume Intelligence</h3>
+                    <p>Your parsed skills and insights are saved.</p>
+                </div>
+            </div>
+
+            <div class="feature-box">
+                <i class="fa-solid fa-chart-line"></i>
+                <div>
+                    <h3>Progress Tracking</h3>
+                    <p>Monitor your learning growth.</p>
+                </div>
+            </div>
+
+            <div class="feature-box">
+                <i class="fa-solid fa-clock"></i>
+                <div>
+                    <h3>Updated Roadmaps</h3>
+                    <p>Learning plans adapt as you grow.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="stats">
+
+            <div>
+                <h2>8+</h2>
+                <span>Career Paths</span>
+            </div>
+
+            <div>
+                <h2>50+</h2>
+                <span>Tracked Skills</span>
+            </div>
+
+            <div>
+                <h2>AI</h2>
+                <span>Driven Insights</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Panel -->
+
+    <div class="right-panel">
+
+        <div class="login-card">
+
+            <h1>Sign in to your account</h1>
+
+            <p>
+                Don't have an account?
+                <a href="/register">Create one free</a>
+            </p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="/login">
+
+                <label>Email Address</label>
+
+                <div class="input-group">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="email" name="email" placeholder="Enter your email address" required>
+                </div>
+
+                <label>Password</label>
+
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                    <span class="password-toggle" onclick="toggleLoginPassword()">
+                        <i id="loginPasswordEye" class="fa-solid fa-eye"></i>
+                    </span>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Sign In
+                </button>
+
+            </form>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <a href="/register" class="register-btn">
+                Create a new account
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    function toggleLoginPassword(){
+
+        const password = document.getElementById("loginPassword");
+        const eye = document.getElementById("loginPasswordEye");
+
+        if(password.type === "password"){
+            password.type = "text";
+            eye.classList.remove("fa-eye");
+            eye.classList.add("fa-eye-slash");
+        }
+        else{
+            password.type = "password";
+            eye.classList.remove("fa-eye-slash");
+            eye.classList.add("fa-eye");
+        }
+
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPilot | Edit Profile</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <style>
+        .avatar-edit-wrap{
+            width:140px;
+            height:140px;
+            border-radius:50%;
+            overflow:hidden;
+            margin:0 auto 15px;
+            border:3px solid rgba(52,211,153,.35);
+            background:#0f1929;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            position:relative;
+        }
+        .avatar-edit-wrap img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+        .avatar-edit-wrap i{
+            font-size:56px;
+            color:#4f6b91;
+        }
+        .avatar-upload-btn{
+            display:block;
+            width:fit-content;
+            margin:0 auto 25px;
+            color:var(--green);
+            cursor:pointer;
+            font-size:14px;
+            font-weight:600;
+        }
+        .avatar-upload-btn:hover{
+            text-decoration:underline;
+        }
+        #profilePictureInput{
+            display:none;
+        }
+        .form-control-dark,
+        select.form-control-dark{
+            background:var(--input);
+            color:var(--text);
+            border:1px solid rgba(255,255,255,.08);
+        }
+        .form-control-dark:focus{
+            background:var(--input);
+            color:var(--text);
+            border-color:var(--green);
+            box-shadow:none;
+        }
+        .form-control-dark::placeholder{
+            color:#5f7692;
+        }
+        label.form-label{
+            color:var(--muted);
+            margin-bottom:8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    {% include "student/_sidebar.html" %}
+
+    <main class="main-content">
+
+        <div class="top-header d-flex justify-content-between align-items-center">
+
+            <div>
+                <h2>Edit Profile</h2>
+                <p>Update your personal and academic details.</p>
+            </div>
+
+            <a href="/student/profile" class="btn"
+               style="background:transparent; border:1px solid rgba(255,255,255,.15); color:var(--text);">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Profile
+            </a>
+
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="row g-4">
+
+                <div class="col-lg-4">
+
+                    <div class="dashboard-card text-center">
+
+                        <div class="avatar-edit-wrap">
+
+                            <img id="avatarPreview"
+                                 src="{% if profile.profile_picture %}{{ url_for('static', filename='uploads/profile_pics/' + profile.profile_picture) }}{% endif %}"
+                                 alt="Profile picture"
+                                 style="{% if not profile.profile_picture %}display:none;{% endif %}">
+
+                            <i id="avatarPlaceholder"
+                               class="fa-solid fa-user"
+                               style="{% if profile.profile_picture %}display:none;{% endif %}"></i>
+
+                        </div>
+
+                        <label for="profilePictureInput" class="avatar-upload-btn">
+                            <i class="fa-solid fa-camera"></i>
+                            Change Photo
+                        </label>
+
+                        <input type="file"
+                               id="profilePictureInput"
+                               name="profile_picture"
+                               accept=".jpg,.jpeg,.png,.webp">
+
+                        <p class="text-secondary" style="font-size:13px;">
+                            JPG, PNG, or WEBP. Max 5 MB.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-8">
+
+                    <div class="dashboard-card">
+
+                        <div class="card-header-custom">
+                            Personal Details
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text"
+                                   name="full_name"
+                                   class="form-control form-control-dark"
+                                   value="{{ profile.full_name }}"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email"
+                                   class="form-control form-control-dark"
+                                   value="{{ profile.email }}"
+                                   disabled>
+                            <small class="text-secondary">Email cannot be changed.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Bio</label>
+                            <textarea name="bio"
+                                      class="form-control form-control-dark"
+                                      rows="4"
+                                      placeholder="Tell us a bit about yourself...">{{ profile.bio or "" }}</textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="dashboard-card">
+
+                        <div class="card-header-custom">
+                            Academic Details
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">University</label>
+                            <input type="text"
+                                   name="university"
+                                   class="form-control form-control-dark"
+                                   value="{{ profile.university or '' }}"
+                                   placeholder="Enter your university">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Degree</label>
+                            <input type="text"
+                                   name="degree"
+                                   class="form-control form-control-dark"
+                                   value="{{ profile.degree or '' }}"
+                                   placeholder="Enter your degree program">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Year of Study</label>
+                            <select name="years_of_study" class="form-select form-control-dark">
+                                <option value="">Select Year</option>
+                                <option value="1" {% if profile.years_of_study == 1 %}selected{% endif %}>Year 1</option>
+                                <option value="2" {% if profile.years_of_study == 2 %}selected{% endif %}>Year 2</option>
+                                <option value="3" {% if profile.years_of_study == 3 %}selected{% endif %}>Year 3</option>
+                                <option value="4" {% if profile.years_of_study == 4 %}selected{% endif %}>Year 4</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn action-btn w-100 mt-2">
+                            <i class="fa-solid fa-check"></i>
+                            Save Changes
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </main>
+
+</div>
+
+<script>
+
+    // Live-preview the selected profile picture before it's uploaded.
+    const pictureInput = document.getElementById("profilePictureInput");
+    const preview       = document.getElementById("avatarPreview");
+    const placeholder    = document.getElementById("avatarPlaceholder");
+
+    pictureInput.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+            placeholder.style.display = "none";
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+</script>
+
+</body>
+</html>

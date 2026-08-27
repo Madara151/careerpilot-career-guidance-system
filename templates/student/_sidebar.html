@@ -1,0 +1,94 @@
+<aside class="sidebar">
+
+    <div class="logo">
+        <i class="fa-solid fa-compass"></i>
+        <span>CareerPilot</span>
+    </div>
+
+    <div class="menu-title">
+        MENU
+    </div>
+
+    <ul class="sidebar-menu">
+
+        <li class="{{ 'active' if request.path == '/student/dashboard' }}">
+            <a href="/student/dashboard">
+                <i class="fa-solid fa-table-columns"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path in ['/student/profile', '/student/edit-profile'] }}">
+            <a href="/student/profile">
+                <i class="fa-regular fa-user"></i>
+                My Profile
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path == '/student/skills' }}">
+            <a href="/student/skills">
+                <i class="fa-solid fa-chart-line"></i>
+                My Skills
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path in ['/student/career-match', '/student/career-selection'] }}">
+            <a href="/student/career-match">
+                <i class="fa-solid fa-bullseye"></i>
+                Career Match
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path == '/student/career-recommendations' }}">
+            <a href="/student/career-recommendations">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                Recommendations
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path == '/student/roadmap' }}">
+            <a href="/student/roadmap">
+                <i class="fa-solid fa-road"></i>
+                Learning Roadmap
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path == '/student/courses' }}">
+            <a href="/student/courses">
+                <i class="fa-solid fa-book-open"></i>
+                Courses
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path == '/student/resume' }}">
+            <a href="/student/resume">
+                <i class="fa-solid fa-file-pdf"></i>
+                Resume
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="menu-title mt-4">
+        ACCOUNT
+    </div>
+
+    <ul class="sidebar-menu">
+
+        <li class="{{ 'active' if request.path == '/student/settings' }}">
+            <a href="/student/settings">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+        </li>
+
+        <li>
+            <a href="/logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</aside>

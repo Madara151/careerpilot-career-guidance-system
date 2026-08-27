@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPilot | Manage Skills</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    {% include "admin/_sidebar.html" %}
+
+    <main class="main-content">
+
+        <div class="top-header d-flex justify-content-between align-items-center">
+
+            <div>
+                <h2>Manage Skills</h2>
+                <p>{{ skills|length }} skill{{ "s" if skills|length != 1 }} in the system.</p>
+            </div>
+
+            <a href="/admin/add-skill" class="btn action-btn">
+                <i class="fa-solid fa-plus"></i>
+                Add Skill
+            </a>
+
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="dashboard-card">
+
+            {% if skills %}
+
+                <table class="admin-table">
+
+                    <thead>
+                        <tr>
+                            <th>Skill</th>
+                            <th>Category</th>
+                            <th>Used in Careers</th>
+                            <th>Students with Skill</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for skill in skills %}
+
+                        <tr>
+
+                            <td><strong>{{ skill.skill_name }}</strong></td>
+
+                            <td>
+                                {% if skill.category %}
+                                    <span class="badge" style="background:rgba(192,132,252,.15); color:var(--purple);">
+                                        {{ skill.category }}
+                                    </span>
+                                {% else %}
+                                    <span class="text-secondary">Uncategorized</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <span class="badge" style="background:rgba(96,165,250,.15); color:var(--blue);">
+                                    {{ skill.career_count }} career{{ "s" if skill.career_count != 1 }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="badge" style="background:rgba(52,211,153,.15); color:var(--green-light);">
+                                    {{ skill.student_count }} student{{ "s" if skill.student_count != 1 }}
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <a href="/admin/edit-skill/{{ skill.skill_id }}"
+                                   class="btn-icon-sm" title="Edit">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+
+                                <a href="/admin/delete-skill/{{ skill.skill_id }}"
+                                   class="btn-icon-sm danger"
+                                   title="Delete"
+                                   onclick="return confirm('Delete \'{{ skill.skill_name }}\'? This removes it from every career requirement and every student\'s skill list that includes it.');">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            {% else %}
+
+                <div class="empty-state">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <p>No skills added yet.</p>
+                    <a href="/admin/add-skill" class="btn action-btn">Add Your First Skill</a>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

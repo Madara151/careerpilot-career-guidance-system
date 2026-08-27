@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPilot | Reports</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+    <style>
+        .chart-wrap{
+            position:relative;
+            height:280px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    {% include "admin/_sidebar.html" %}
+
+    <main class="main-content">
+
+        <div class="top-header">
+            <h2>Reports</h2>
+            <p>Platform-wide analytics across students, careers, and skills.</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- TOP SUMMARY -->
+
+        <div class="row g-4 mb-1">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="stat-box stat-green">
+                    <h2>{{ total_students }}</h2>
+                    <p>Total Students</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="stat-box stat-blue">
+                    <h2>{{ total_resumes }}</h2>
+                    <p>Resumes Uploaded</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="stat-box stat-purple">
+                    <h2>{{ resume_upload_rate }}%</h2>
+                    <p>Resume Upload Rate</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row g-4 mt-2">
+
+            <!-- CAREER DISTRIBUTION -->
+
+            <div class="col-lg-6">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Students per Career
+                    </div>
+
+                    {% if career_distribution %}
+                        <div class="chart-wrap">
+                            <canvas id="careerChart"></canvas>
+                        </div>
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <p>No careers added yet.</p>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- REGISTRATION TREND -->
+
+            <div class="col-lg-6">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Student Registrations Over Time
+                    </div>
+
+                    {% if registration_trend %}
+                        <div class="chart-wrap">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <p>No registrations yet.</p>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- TOP MISSING SKILLS -->
+
+            <div class="col-lg-6">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Most Common Skill Gaps
+                    </div>
+
+                    <p class="text-secondary" style="margin-top:-10px;">
+                        Skills most students are missing for their target career &mdash;
+                        good candidates for course recommendations.
+                    </p>
+
+                    {% if top_missing_skills %}
+                        <div class="chart-wrap">
+                            <canvas id="missingSkillsChart"></canvas>
+                        </div>
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <p>No skill gaps to show yet.</p>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- TOP OWNED SKILLS -->
+
+            <div class="col-lg-6">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Most Common Skills Owned
+                    </div>
+
+                    <p class="text-secondary" style="margin-top:-10px;">
+                        The skills students add to their profile most often.
+                    </p>
+
+                    {% if top_owned_skills %}
+                        <div class="chart-wrap">
+                            <canvas id="ownedSkillsChart"></canvas>
+                        </div>
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <p>No student skills added yet.</p>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ROADMAP COMPLETION BY CAREER -->
+
+        <div class="dashboard-card">
+
+            <div class="card-header-custom">
+                Roadmap Completion by Career
+            </div>
+
+            {% if roadmap_by_career %}
+
+                {% for row in roadmap_by_career %}
+
+                <div class="popularity-row">
+
+                    <div class="popularity-label">
+                        <span>{{ row.career_name }}</span>
+                        <span>
+                            {% if row.total_steps > 0 %}
+                                {{ row.completed_steps }}/{{ row.total_steps }} steps &mdash; {{ row.percentage }}%
+                            {% else %}
+                                No roadmap steps yet
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <div class="popularity-bar-bg">
+                        <div class="popularity-bar-fill" style="width: {{ row.percentage }}%;"></div>
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty-state">
+                    <i class="fa-solid fa-road"></i>
+                    <p>No careers added yet.</p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+
+    // Shared dark-theme chart defaults
+    Chart.defaults.color = "#8899AA";
+    Chart.defaults.font.family = "'Inter', sans-serif";
+
+    const gridColor = "rgba(255,255,255,.06)";
+
+    {% if career_distribution %}
+
+    new Chart(document.getElementById("careerChart"), {
+        type: "bar",
+        data: {
+            labels: {{ career_distribution | map(attribute="career_name") | list | tojson }},
+            datasets: [{
+                label: "Students",
+                data: {{ career_distribution | map(attribute="student_count") | list | tojson }},
+                backgroundColor: "#34D399",
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { display: false } },
+                y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: gridColor } }
+            }
+        }
+    });
+
+    {% endif %}
+
+    {% if registration_trend %}
+
+    new Chart(document.getElementById("trendChart"), {
+        type: "line",
+        data: {
+            labels: {{ registration_trend | map(attribute="month") | list | tojson }},
+            datasets: [{
+                label: "New Students",
+                data: {{ registration_trend | map(attribute="student_count") | list | tojson }},
+                borderColor: "#60A5FA",
+                backgroundColor: "rgba(96,165,250,.15)",
+                fill: true,
+                tension: 0.35,
+                pointBackgroundColor: "#60A5FA"
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { display: false } },
+                y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: gridColor } }
+            }
+        }
+    });
+
+    {% endif %}
+
+    {% if top_missing_skills %}
+
+    new Chart(document.getElementById("missingSkillsChart"), {
+        type: "bar",
+        data: {
+            labels: {{ top_missing_skills | map(attribute="skill_name") | list | tojson }},
+            datasets: [{
+                label: "Students Missing",
+                data: {{ top_missing_skills | map(attribute="missing_count") | list | tojson }},
+                backgroundColor: "#F87171",
+                borderRadius: 6
+            }]
+        },
+        options: {
+            indexAxis: "y",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: gridColor } },
+                y: { grid: { display: false } }
+            }
+        }
+    });
+
+    {% endif %}
+
+    {% if top_owned_skills %}
+
+    new Chart(document.getElementById("ownedSkillsChart"), {
+        type: "bar",
+        data: {
+            labels: {{ top_owned_skills | map(attribute="skill_name") | list | tojson }},
+            datasets: [{
+                label: "Students With Skill",
+                data: {{ top_owned_skills | map(attribute="owned_count") | list | tojson }},
+                backgroundColor: "#C084FC",
+                borderRadius: 6
+            }]
+        },
+        options: {
+            indexAxis: "y",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: gridColor } },
+                y: { grid: { display: false } }
+            }
+        }
+    });
+
+    {% endif %}
+
+</script>
+
+</body>
+</html>

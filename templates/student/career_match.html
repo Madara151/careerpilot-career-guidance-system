@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPilot | Career Match</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    {% include "student/_sidebar.html" %}
+
+    <main class="main-content">
+
+        <div class="top-header">
+            <h2>Career Match Analysis</h2>
+            <p>
+                {% if profile.career_name %}
+                    Comparing your skills against <strong>{{ profile.career_name }}</strong>.
+                {% else %}
+                    No target career selected yet.
+                {% endif %}
+            </p>
+        </div>
+
+        {% if not profile.career_name %}
+
+            <div class="dashboard-card empty-state">
+                <i class="fa-solid fa-bullseye"></i>
+                <p>You haven't selected a target career yet.</p>
+                <a href="/student/career-selection" class="btn action-btn">Browse Careers</a>
+            </div>
+
+        {% else %}
+
+        <div class="row g-4">
+
+            <div class="col-lg-5">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Match Score
+                    </div>
+
+                    <div class="match-container">
+
+                        <div class="progress-ring">
+
+                            <svg width="180" height="180">
+                                <circle class="ring-bg" cx="90" cy="90" r="70"></circle>
+                                <circle class="ring-progress" cx="90" cy="90" r="70"
+                                        style="stroke-dashoffset: calc(440 - (440 * {{ match_percentage }} / 100));">
+                                </circle>
+                            </svg>
+
+                            <div class="ring-text">{{ match_percentage }}%</div>
+
+                        </div>
+
+                        <p class="match-description">
+                            You match <strong>{{ match_percentage }}%</strong> of the
+                            required skills for <strong>{{ profile.career_name }}</strong>.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="dashboard-card mt-4">
+
+                    <div class="card-header-custom">
+                        Quick Stats
+                    </div>
+
+                    <div class="stats-grid">
+
+                        <div class="stat-box stat-green">
+                            <h2>{{ matched_count }}</h2>
+                            <p>Matched Skills</p>
+                        </div>
+
+                        <div class="stat-box stat-red">
+                            <h2>{{ missing_count }}</h2>
+                            <p>Missing Skills</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-7">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Required Skills
+                    </div>
+
+                    <ul class="list-unstyled">
+
+                        {% for skill in required_skills %}
+
+                        <li class="info-row">
+                            <span>{{ skill }}</span>
+
+                            {% if skill in missing_skills %}
+                                <strong class="text-danger">
+                                    <i class="fa-solid fa-circle-xmark"></i> Missing
+                                </strong>
+                            {% else %}
+                                <strong style="color:var(--green);">
+                                    <i class="fa-solid fa-circle-check"></i> Have it
+                                </strong>
+                            {% endif %}
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </main>
+
+</div>
+
+</body>
+</html>

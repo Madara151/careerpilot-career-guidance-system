@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPilot | Navigate Your Career With Intelligence</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+
+<body>
+
+<div class="ambient-grid"></div>
+<div class="ambient-glow glow-green"></div>
+<div class="ambient-glow glow-purple"></div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+
+        <div class="nav-logo">
+            <i class="fa-solid fa-compass"></i>
+            <span>CareerPilot</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#careers">Careers</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+
+        <div class="nav-actions">
+            <a href="/login" class="btn-nav-login">Sign In</a>
+            <a href="/register" class="btn-nav-register">Get Started</a>
+        </div>
+
+    </div>
+</nav>
+
+<!-- HERO -->
+
+<header class="hero container">
+
+    <div class="hero-copy">
+
+        <div class="hero-eyebrow">
+            <span class="dot"></span>
+            AI-POWERED CAREER GUIDANCE
+        </div>
+
+        <h1>
+            See exactly what stands between you and
+            <span class="accent">the career you want</span>.
+        </h1>
+
+        <p class="hero-sub">
+            CareerPilot compares your skills against real career requirements,
+            then builds a personalized roadmap — skill by skill — to close the gap.
+        </p>
+
+        <div class="hero-actions">
+
+            <a href="/register" class="btn-primary">
+                Get Started Free
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <a href="/login" class="btn-ghost">
+                Sign In
+            </a>
+
+        </div>
+
+        <div class="hero-stats">
+
+            <div class="hero-stat">
+                <h3 data-count="8">0</h3>
+                <span>Career Paths</span>
+            </div>
+
+            <div class="hero-stat">
+                <h3 data-count="50">0</h3>
+                <span>Tracked Skills</span>
+            </div>
+
+            <div class="hero-stat">
+                <h3 data-static="AI">AI</h3>
+                <span>Powered Matching</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="route-panel">
+
+        <div class="route-panel-label">LIVE PREVIEW</div>
+        <div class="route-panel-title">Your path to Data Scientist</div>
+
+        <svg class="route-svg" viewBox="0 0 440 380" xmlns="http://www.w3.org/2000/svg">
+
+            <path class="route-line"
+                  d="M30,330 C70,300 90,290 130,255 C170,220 190,205 230,170 C270,135 290,120 330,90 C355,72 370,60 400,45" />
+
+            <!-- You are here -->
+            <circle class="route-node-ring" cx="30" cy="330" r="13" style="animation-delay:.4s"></circle>
+            <circle class="route-node-dot" cx="30" cy="330" r="5" style="animation-delay:.4s"></circle>
+            <text class="route-node-tag" x="48" y="322" style="animation-delay:.5s">YOU ARE HERE</text>
+            <text class="route-node-label" x="48" y="341" style="animation-delay:.55s">2 skills added</text>
+
+            <!-- Python -->
+            <circle class="route-node-ring" cx="130" cy="255" r="11" style="animation-delay:1.1s"></circle>
+            <circle class="route-node-dot" cx="130" cy="255" r="4.5" style="animation-delay:1.1s"></circle>
+            <text class="route-node-label" x="148" y="251" style="animation-delay:1.2s">Python &mdash; matched</text>
+
+            <!-- SQL -->
+            <circle class="route-node-ring" cx="230" cy="170" r="11" style="animation-delay:1.7s"></circle>
+            <circle class="route-node-dot" cx="230" cy="170" r="4.5" style="animation-delay:1.7s"></circle>
+            <text class="route-node-label" x="248" y="166" style="animation-delay:1.8s">SQL &mdash; matched</text>
+
+            <!-- Destination -->
+            <circle class="route-pulse" cx="400" cy="45" r="9" style="animation-delay:2.6s"></circle>
+            <circle class="route-node-ring pin" cx="400" cy="45" r="15" style="animation-delay:2.4s"></circle>
+            <circle class="route-node-dot pin" cx="400" cy="45" r="6" style="animation-delay:2.4s"></circle>
+            <text class="route-node-tag" x="322" y="28" style="animation-delay:2.5s">TARGET CAREER</text>
+            <text class="route-node-label" x="322" y="66" style="animation-delay:2.6s">Data Scientist</text>
+
+        </svg>
+
+        <div class="route-footnote">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            Updates automatically as your skills grow.
+        </div>
+
+    </div>
+
+</header>
+
+<!-- FEATURES -->
+
+<section class="section" id="features">
+    <div class="container">
+
+        <div class="reveal">
+            <div class="section-eyebrow">WHAT CAREERPILOT DOES</div>
+            <h2 class="section-title">Everything you need to close the gap, in one place.</h2>
+            <p class="section-desc">
+                From your first skill to your first offer, CareerPilot keeps your
+                plan grounded in real requirements — not guesswork.
+            </p>
+        </div>
+
+        <div class="features-grid">
+
+            <div class="feature-card reveal">
+                <div class="feature-icon i-green"><i class="fa-solid fa-chart-line"></i></div>
+                <h4>Skill Gap Analysis</h4>
+                <p>See precisely which skills separate you from any career you target, ranked by priority.</p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon i-blue"><i class="fa-solid fa-road"></i></div>
+                <h4>Personalized Roadmaps</h4>
+                <p>Get a step-by-step learning plan built from your actual gaps — not a generic course list.</p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon i-purple"><i class="fa-solid fa-file-lines"></i></div>
+                <h4>Resume Intelligence</h4>
+                <p>Upload your resume and let CareerPilot detect your skills automatically, no manual entry.</p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon i-amber"><i class="fa-solid fa-book-open"></i></div>
+                <h4>Course Recommendations</h4>
+                <p>Every missing skill comes with a matched course, so you always know what to learn next.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- WHO IT'S FOR (image section) -->
+
+<section class="section">
+    <div class="container split-grid">
+
+        <div class="split-image reveal">
+
+            <div class="profile-mock">
+
+                <div class="profile-mock-avatar"><i class="fa-solid fa-user"></i></div>
+
+                <div class="mock-line w-60" style="height:14px; margin-bottom:8px;"></div>
+                <div class="mock-line w-40 dim" style="height:10px;"></div>
+
+                <div class="profile-mock-skills">
+                    <span class="skill-pill">Python</span>
+                    <span class="skill-pill">SQL</span>
+                    <span class="skill-pill">Git</span>
+                    <span class="skill-pill dim">+3 more</span>
+                </div>
+
+                <div class="profile-mock-match">
+                    <span>Data Scientist Match</span>
+                    <strong>72%</strong>
+                </div>
+
+            </div>
+
+            <div class="split-image-badge">
+                <i class="fa-solid fa-graduation-cap"></i>
+                Built for students figuring out their first real career move.
+            </div>
+
+        </div>
+
+        <div class="split-copy reveal">
+
+            <div class="section-eyebrow">WHO IT'S FOR</div>
+            <h2 class="section-title">Made for students figuring out what comes next.</h2>
+
+            <p class="section-desc">
+                Whether you're choosing a major, switching direction, or just
+                want to know if you're job-ready, CareerPilot turns
+                "I'm not sure what to learn" into a concrete, ranked plan.
+            </p>
+
+            <a href="/register" class="btn-primary">
+                Create Your Profile
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+
+<section class="section process-section" id="how-it-works">
+    <div class="container">
+
+        <div class="reveal">
+            <div class="section-eyebrow">HOW IT WORKS</div>
+            <h2 class="section-title">From sign-up to roadmap in four steps.</h2>
+        </div>
+
+        <div class="process-path">
+
+            <div class="process-step reveal">
+                <div class="process-num">01</div>
+                <h5>Create your profile</h5>
+                <p>Tell us your university, degree, and where you're starting from.</p>
+            </div>
+
+            <div class="process-step reveal">
+                <div class="process-num">02</div>
+                <h5>Add your skills</h5>
+                <p>List what you already know, or let your resume do it for you.</p>
+            </div>
+
+            <div class="process-step reveal">
+                <div class="process-num">03</div>
+                <h5>Choose a target career</h5>
+                <p>Pick from real career paths, each with its own required skill set.</p>
+            </div>
+
+            <div class="process-step reveal">
+                <div class="process-num">04</div>
+                <h5>Follow your roadmap</h5>
+                <p>Get a personalized plan that updates automatically as you learn.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- CAREERS -->
+
+<section class="section" id="careers">
+    <div class="container">
+
+        <div class="reveal">
+            <div class="section-eyebrow">CAREER PATHS</div>
+            <h2 class="section-title">Built around real careers, not generic categories.</h2>
+            <p class="section-desc">
+                Every path maps to a concrete set of required skills, curated and
+                maintained by CareerPilot's team.
+            </p>
+        </div>
+
+        <div class="careers-scroll">
+
+            <div class="career-chip reveal">
+                <i class="fa-solid fa-laptop-code"></i>
+                <h6>Software Engineer</h6>
+                <span>Design and develop software applications</span>
+            </div>
+
+            <div class="career-chip reveal">
+                <i class="fa-solid fa-database"></i>
+                <h6>Data Engineer</h6>
+                <span>Build and manage data pipelines</span>
+            </div>
+
+            <div class="career-chip reveal">
+                <i class="fa-solid fa-chart-simple"></i>
+                <h6>Data Scientist</h6>
+                <span>Analyze and predict using data</span>
+            </div>
+
+            <div class="career-chip reveal">
+                <i class="fa-solid fa-brain"></i>
+                <h6>AI Engineer</h6>
+                <span>Develop artificial intelligence solutions</span>
+            </div>
+
+            <div class="career-chip reveal">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h6>Cybersecurity Analyst</h6>
+                <span>Protect systems and networks</span>
+            </div>
+
+            <div class="career-chip reveal">
+                <i class="fa-solid fa-cloud"></i>
+                <h6>Cloud Engineer</h6>
+                <span>Manage cloud infrastructure</span>
+            </div>
+
+            <div class="career-chip reveal">
+                <i class="fa-solid fa-infinity"></i>
+                <h6>DevOps Engineer</h6>
+                <span>Automate deployment processes</span>
+            </div>
+
+            <div class="career-chip reveal">
+                <i class="fa-solid fa-pen-ruler"></i>
+                <h6>UI/UX Designer</h6>
+                <span>Design user interfaces and experiences</span>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- PRODUCT PREVIEW -->
+
+<section class="section" id="preview">
+    <div class="container">
+
+        <div class="reveal preview-heading">
+            <div class="section-eyebrow">SEE IT IN ACTION</div>
+            <h2 class="section-title">Your dashboard, built around one number: your match score.</h2>
+            <p class="section-desc">
+                Every skill you add and every step you complete moves this number —
+                so you always know exactly where you stand.
+            </p>
+        </div>
+
+        <div class="browser-mock reveal">
+
+            <div class="browser-bar">
+                <span class="browser-dot dot-red"></span>
+                <span class="browser-dot dot-amber"></span>
+                <span class="browser-dot dot-green"></span>
+                <span class="browser-url">careerpilot.app/student/dashboard</span>
+            </div>
+
+            <div class="browser-body">
+
+                <div class="mock-sidebar">
+                    <div class="mock-logo"><i class="fa-solid fa-compass"></i></div>
+                    <div class="mock-nav-item active"></div>
+                    <div class="mock-nav-item"></div>
+                    <div class="mock-nav-item"></div>
+                    <div class="mock-nav-item"></div>
+                    <div class="mock-nav-item"></div>
+                </div>
+
+                <div class="mock-main">
+
+                    <div class="mock-welcome">
+                        <div class="mock-line w-40"></div>
+                        <div class="mock-line w-70 dim"></div>
+                    </div>
+
+                    <div class="mock-grid">
+
+                        <div class="mock-card mock-ring-card">
+                            <div class="mock-ring">
+                                <svg viewBox="0 0 100 100">
+                                    <circle class="mock-ring-bg" cx="50" cy="50" r="42"></circle>
+                                    <circle class="mock-ring-fill" cx="50" cy="50" r="42"></circle>
+                                </svg>
+                                <span class="mock-ring-text">76%</span>
+                            </div>
+                            <div class="mock-line w-60 dim center"></div>
+                        </div>
+
+                        <div class="mock-card">
+                            <div class="mock-stat-row">
+                                <span class="mock-dot green"></span>
+                                <div class="mock-line w-80"></div>
+                            </div>
+                            <div class="mock-stat-row">
+                                <span class="mock-dot red"></span>
+                                <div class="mock-line w-60"></div>
+                            </div>
+                            <div class="mock-stat-row">
+                                <span class="mock-dot blue"></span>
+                                <div class="mock-line w-70"></div>
+                            </div>
+                        </div>
+
+                        <div class="mock-card mock-bars-card">
+                            <div class="mock-bar" style="height:35%;"></div>
+                            <div class="mock-bar" style="height:60%;"></div>
+                            <div class="mock-bar" style="height:42%;"></div>
+                            <div class="mock-bar" style="height:80%;"></div>
+                            <div class="mock-bar" style="height:55%;"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- STORY -->
+
+<section class="section" id="story">
+    <div class="container">
+
+        <div class="story-grid">
+
+            <div class="story-photo reveal">
+                <img src="{{ url_for('static', filename='images/desk-setup.jpg') }}"
+                     alt="The desk where CareerPilot was built, late at night">
+            </div>
+
+            <div class="story-copy reveal">
+
+                <div class="section-eyebrow">WHY CAREERPILOT EXISTS</div>
+                <h2 class="section-title">Built at a desk exactly like this one.</h2>
+
+                <p class="section-desc">
+                    CareerPilot started as a final-year project, not a company —
+                    born from a simple, annoying problem: knowing what to learn
+                    next shouldn't take guesswork. Coursework rarely lines up
+                    with what job listings actually ask for, and figuring out
+                    the gap usually means digging through a dozen tabs at midnight.
+                </p>
+
+                <p class="section-desc">
+                    So this is that late-night digging, turned into a tool —
+                    built by a student who wanted the answer to show up on one
+                    screen instead of ten.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+
+
+<section class="section" style="padding-top:0;">
+
+    <div class="cta-banner reveal">
+
+        <h2>Ready to see your own skill gap?</h2>
+        <p>It takes two minutes to create a profile and get your first personalized roadmap.</p>
+
+        <div class="hero-actions">
+
+            <a href="/register" class="btn-primary">
+                Get Started Free
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <a href="/login" class="btn-ghost">
+                Sign In
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="site-footer">
+    <div class="container">
+
+        <div class="footer-top">
+
+            <div class="nav-logo">
+                <i class="fa-solid fa-compass"></i>
+                <span>CareerPilot</span>
+            </div>
+
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a href="/login">Sign In</a>
+                <a href="/register">Register</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2026 CareerPilot. Built for students, by students.
+        </div>
+
+    </div>
+</footer>
+
+<script>
+
+    // ---- Sticky navbar background on scroll ----
+    const navbar = document.getElementById("navbar");
+
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 30) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+
+    // ---- Scroll-reveal for sections ----
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealEls = document.querySelectorAll(".reveal");
+
+    if (prefersReducedMotion) {
+
+        revealEls.forEach(function (el) {
+            el.classList.add("in-view");
+        });
+
+    } else {
+
+        const revealObserver = new IntersectionObserver(function (entries) {
+
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("in-view");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+
+        }, { threshold: 0.15 });
+
+        revealEls.forEach(function (el) {
+            revealObserver.observe(el);
+        });
+
+    }
+
+    // ---- Animated stat counters ----
+    const statEls = document.querySelectorAll("[data-count]");
+
+    function animateCount(el) {
+
+        const target = parseInt(el.getAttribute("data-count"), 10);
+
+        if (prefersReducedMotion) {
+            el.textContent = target + "+";
+            return;
+        }
+
+        const duration = 1200;
+        const start = performance.now();
+
+        function step(now) {
+
+            const progress = Math.min((now - start) / duration, 1);
+            const value = Math.floor(progress * target);
+
+            el.textContent = value + "+";
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                el.textContent = target + "+";
+            }
+
+        }
+
+        requestAnimationFrame(step);
+
+    }
+
+    const statObserver = new IntersectionObserver(function (entries) {
+
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                animateCount(entry.target);
+                statObserver.unobserve(entry.target);
+            }
+        });
+
+    }, { threshold: 0.5 });
+
+    statEls.forEach(function (el) {
+        statObserver.observe(el);
+    });
+
+</script>
+
+</body>
+</html>

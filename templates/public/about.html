@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | CareerPilot</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+</head>
+
+<body>
+
+<div class="ambient-grid"></div>
+<div class="ambient-glow glow-green"></div>
+<div class="ambient-glow glow-purple"></div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+
+        <div class="nav-logo">
+            <i class="fa-solid fa-compass"></i>
+            <span>CareerPilot</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="/#features">Features</a>
+            <a href="/#how-it-works">How It Works</a>
+            <a href="/#careers">Careers</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+
+        <div class="nav-actions">
+            <a href="/login" class="btn-nav-login">Sign In</a>
+            <a href="/register" class="btn-nav-register">Get Started</a>
+        </div>
+
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+
+<header class="page-header container">
+
+    <div class="section-eyebrow">
+        <span class="dot" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:8px;"></span>
+        ABOUT CAREERPILOT
+    </div>
+
+    <h1>A final-year project built to answer one annoying question.</h1>
+
+    <p>
+        "What should I actually be learning right now?" CareerPilot exists because
+        that question shouldn't take a dozen open tabs and a guess.
+    </p>
+
+</header>
+
+<!-- MISSION QUOTE -->
+
+<section class="section" style="padding-top:20px; padding-bottom:80px;">
+
+    <div class="mission-quote reveal">
+
+        <blockquote>
+            Coursework rarely lines up with what job listings actually ask for.
+            CareerPilot exists to <span class="accent">close that gap</span> —
+            with real skill data, not vague advice.
+        </blockquote>
+
+        <cite>— The idea behind CareerPilot</cite>
+
+    </div>
+
+</section>
+
+<!-- PROBLEM / APPROACH -->
+
+<section class="section" style="padding-top:0;">
+    <div class="container">
+
+        <div class="reveal">
+            <div class="section-eyebrow">THE PROBLEM</div>
+            <h2 class="section-title">Career planning usually looks like this.</h2>
+            <p class="section-desc">
+                Most students don't lack ambition — they lack a clear, specific
+                answer to "what's missing?" Here's the difference CareerPilot
+                is built to make.
+            </p>
+        </div>
+
+        <div class="approach-grid">
+
+            <div class="approach-card old reveal">
+
+                <span class="approach-tag">WITHOUT CAREERPILOT</span>
+
+                <h4>Guessing, one tab at a time</h4>
+
+                <ul>
+                    <li><i class="fa-solid fa-xmark"></i> Scrolling job listings trying to reverse-engineer what skills matter</li>
+                    <li><i class="fa-solid fa-xmark"></i> Picking courses based on what's popular, not what's missing</li>
+                    <li><i class="fa-solid fa-xmark"></i> No clear sense of how close you actually are to a target role</li>
+                    <li><i class="fa-solid fa-xmark"></i> Resume sits untouched until an application deadline</li>
+                </ul>
+
+            </div>
+
+            <div class="approach-card new reveal">
+
+                <span class="approach-tag">WITH CAREERPILOT</span>
+
+                <h4>One dashboard, one clear next step</h4>
+
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Career requirements are mapped to specific, named skills</li>
+                    <li><i class="fa-solid fa-check"></i> Every missing skill comes with a matched course to close it</li>
+                    <li><i class="fa-solid fa-check"></i> A live match percentage shows exactly how close you are</li>
+                    <li><i class="fa-solid fa-check"></i> Upload a resume once and skills are detected automatically</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- VALUES -->
+
+<section class="section">
+    <div class="container">
+
+        <div class="reveal">
+            <div class="section-eyebrow">HOW IT'S BUILT</div>
+            <h2 class="section-title">A few principles this project holds to.</h2>
+        </div>
+
+        <div class="values-grid">
+
+            <div class="value-card reveal">
+                <div class="value-number">01</div>
+                <h4>Specific over generic</h4>
+                <p>Every recommendation traces back to a named skill and a named career requirement — not a vague "you should learn more."</p>
+            </div>
+
+            <div class="value-card reveal">
+                <div class="value-number">02</div>
+                <h4>One number you can trust</h4>
+                <p>The match percentage is calculated the same way every time, straight from your skills against real career requirements.</p>
+            </div>
+
+            <div class="value-card reveal">
+                <div class="value-number">03</div>
+                <h4>Built to keep growing</h4>
+                <p>Careers, skills, and courses are managed and expanded over time — this is a living project, not a one-time build.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- TECH STACK -->
+
+<section class="section" style="padding-top:0;">
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <div class="section-eyebrow" style="justify-content:center; display:flex;">UNDER THE HOOD</div>
+            <h2 class="section-title" style="margin:0 auto;">Built with a straightforward stack.</h2>
+        </div>
+
+        <div class="stack-strip reveal">
+            <span class="stack-pill"><i class="fa-brands fa-python"></i> Python &amp; Flask</span>
+            <span class="stack-pill"><i class="fa-solid fa-database"></i> MySQL</span>
+            <span class="stack-pill"><i class="fa-brands fa-html5"></i> Jinja2 Templates</span>
+            <span class="stack-pill"><i class="fa-brands fa-bootstrap"></i> Bootstrap</span>
+            <span class="stack-pill"><i class="fa-solid fa-file-pdf"></i> pdfplumber</span>
+        </div>
+
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+
+<section class="section" style="padding-top:0;">
+
+    <div class="cta-banner reveal">
+
+        <h2>See where your own skills stand.</h2>
+        <p>Create a profile, add what you know, and get a real answer in minutes.</p>
+
+        <div class="hero-actions">
+
+            <a href="/register" class="btn-primary">
+                Get Started Free
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <a href="/login" class="btn-ghost">
+                Sign In
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="site-footer">
+    <div class="container">
+
+        <div class="footer-top">
+
+            <div class="nav-logo">
+                <i class="fa-solid fa-compass"></i>
+                <span>CareerPilot</span>
+            </div>
+
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a href="/login">Sign In</a>
+                <a href="/register">Register</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2026 CareerPilot. Built for students, by students.
+        </div>
+
+    </div>
+</footer>
+
+<script>
+
+    // ---- Sticky navbar background on scroll ----
+    const navbar = document.getElementById("navbar");
+
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 30) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+
+    // ---- Scroll-reveal for sections ----
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealEls = document.querySelectorAll(".reveal");
+
+    if (prefersReducedMotion) {
+
+        revealEls.forEach(function (el) {
+            el.classList.add("in-view");
+        });
+
+    } else {
+
+        const revealObserver = new IntersectionObserver(function (entries) {
+
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("in-view");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+
+        }, { threshold: 0.15 });
+
+        revealEls.forEach(function (el) {
+            revealObserver.observe(el);
+        });
+
+    }
+
+</script>
+
+</body>
+</html>

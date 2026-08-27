@@ -1,0 +1,103 @@
+<aside class="sidebar">
+
+    <div class="logo">
+        <i class="fa-solid fa-compass"></i>
+        <span>CareerPilot</span>
+        <span class="admin-tag">ADMIN</span>
+    </div>
+
+    <div class="menu-title">
+        MANAGE
+    </div>
+
+    <ul class="sidebar-menu">
+
+        <li class="{{ 'active' if request.path == '/admin/dashboard' }}">
+            <a href="/admin/dashboard">
+                <i class="fa-solid fa-table-columns"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path.startswith('/admin/student') }}">
+            <a href="/admin/students">
+                <i class="fa-solid fa-user-graduate"></i>
+                Students
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path.startswith('/admin/careers') }}">
+            <a href="/admin/careers">
+                <i class="fa-solid fa-briefcase"></i>
+                Careers
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path.startswith('/admin/skills') }}">
+            <a href="/admin/skills">
+                <i class="fa-solid fa-chart-line"></i>
+                Skills
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path.startswith('/admin/career-skills') }}">
+            <a href="/admin/career-skills">
+                <i class="fa-solid fa-diagram-project"></i>
+                Career &ndash; Skills Map
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path.startswith('/admin/courses') }}">
+            <a href="/admin/courses">
+                <i class="fa-solid fa-book-open"></i>
+                Courses
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path.startswith('/admin/reports') }}">
+            <a href="/admin/reports">
+                <i class="fa-solid fa-chart-pie"></i>
+                Reports
+            </a>
+        </li>
+
+        <li class="{{ 'active' if request.path.startswith('/admin/message') }}">
+            <a href="/admin/messages" style="display:flex; justify-content:space-between; align-items:center;">
+                <span>
+                    <i class="fa-solid fa-envelope"></i>
+                    Messages
+                </span>
+
+                {% if sidebar_unread_count and sidebar_unread_count > 0 %}
+                <span style="background:var(--red); color:white; font-size:11px; font-weight:700; border-radius:20px; padding:2px 8px;">
+                    {{ sidebar_unread_count }}
+                </span>
+                {% endif %}
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="menu-title mt-4">
+        ACCOUNT
+    </div>
+
+    <ul class="sidebar-menu">
+
+        <li class="{{ 'active' if request.path.startswith('/admin/settings') }}">
+            <a href="/admin/settings">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+        </li>
+
+        <li>
+            <a href="/logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</aside>

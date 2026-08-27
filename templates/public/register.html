@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPilot - Register</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+</head>
+
+<body>
+
+<div class="container-fluid vh-100">
+
+    <div class="row h-100">
+
+        <!-- LEFT SIDE -->
+
+        <div class="col-lg-4 left-panel d-none d-lg-flex flex-column">
+
+            <a href="/" style="display:inline-flex; align-items:center; gap:8px; color:#8ea0c1; text-decoration:none; font-size:14px; font-weight:600; margin-bottom:28px; width:fit-content;">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Home
+            </a>
+
+            <div class="logo-section">
+                <h3>
+                    <i class="fa-solid fa-compass"></i>
+                    CareerPilot
+                </h3>
+            </div>
+
+            <div class="mt-5">
+
+                <p class="small-heading">
+                    AI-POWERED CAREER GUIDANCE
+                </p>
+
+                <h1 class="main-heading">
+                    Navigate your career with intelligence.
+                </h1>
+
+                <p class="description">
+                    CareerPilot analyzes your skills, maps your gaps,
+                    and charts the fastest path to the career you're
+                    building toward.
+                </p>
+
+            </div>
+
+            <div class="features mt-5">
+
+                <div class="feature-item">
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <div>
+                        <h5>Skill Gap Analysis</h5>
+                        <p>Identify missing skills for your target career.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <i class="fa-solid fa-route"></i>
+
+                    <div>
+                        <h5>Learning Roadmaps</h5>
+                        <p>Step-by-step learning plans.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    <div>
+                        <h5>Resume Intelligence</h5>
+                        <p>AI-powered resume analysis.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="stats mt-auto">
+
+                <div>
+                    <h2>8+</h2>
+                    <span>CAREER PATHS</span>
+                </div>
+
+                <div>
+                    <h2>50+</h2>
+                    <span>TRACKED SKILLS</span>
+                </div>
+
+                <div>
+                    <h2>AI</h2>
+                    <span>INSIGHTS</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="col-lg-8 right-panel">
+
+            <div class="register-card">
+
+                <h1>Create your account</h1>
+
+                <p class="mb-4">
+                    Already have an account?
+                    <a href="/login">Sign in</a>
+                </p>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <form id="registerForm" method="POST" action="/register">
+
+                    <!-- Full Name -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Full Name
+                        </label>
+
+                        <div class="input-group custom-input">
+
+                            <span class="input-group-text">
+                                <i class="fa-regular fa-user"></i>
+                            </span>
+
+                            <input type="text"
+                                   name="full_name"
+                                   class="form-control"
+                                   placeholder="Enter your full name"
+                                   required>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Email -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Email Address
+                        </label>
+
+                        <div class="input-group custom-input">
+
+                            <span class="input-group-text">
+                                <i class="fa-regular fa-envelope"></i>
+                            </span>
+
+                            <input type="email"
+                                   name="email"
+                                   class="form-control"
+                                   placeholder="Enter your email address"
+                                   required>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Password Row -->
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Password
+                            </label>
+
+                            <div class="input-group custom-input">
+
+    <span class="input-group-text">
+        <i class="fa-solid fa-lock"></i>
+    </span>
+
+    <input type="password"
+           id="password"
+           name="password"
+           class="form-control"
+           placeholder="Create a password"
+           required>
+
+    <span class="input-group-text password-toggle"
+          onclick="togglePassword()">
+
+        <i id="passwordEye"
+           class="fa-solid fa-eye"></i>
+
+    </span>
+
+</div>
+
+<small id="passwordStrength"></small>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Confirm Password
+                            </label>
+
+                            <div class="input-group custom-input">
+
+    <span class="input-group-text">
+        <i class="fa-solid fa-shield-halved"></i>
+    </span>
+
+    <input type="password"
+           id="confirmPassword"
+           name="confirm_password"
+           class="form-control"
+           placeholder="Confirm your password"
+           required>
+
+</div>
+
+<small id="passwordMatch"></small>
+
+                        </div>
+
+                    </div>
+
+                    <!-- University -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            University (Optional)
+                        </label>
+
+                        <div class="input-group custom-input">
+
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </span>
+
+                            <input type="text"
+       name="university"
+       class="form-control"
+       placeholder="Enter your university">
+
+                        </div>
+
+                    </div>
+
+                    <!-- Degree + Year -->
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Degree (Optional)
+                            </label>
+
+                            <div class="input-group custom-input">
+
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </span>
+
+                                <input type="text"
+       name="degree"
+       class="form-control"
+       placeholder="Enter your degree program">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Year of Study
+                            </label>
+
+                            <select class="form-select custom-select"
+                                    name="year_of_study">
+
+                                <option value="">Select Year</option>
+                                <option>Year 1</option>
+                                <option>Year 2</option>
+                                <option>Year 3</option>
+                                <option>Year 4</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Button -->
+
+                    <button type="submit"
+                            id="submitBtn"
+                            class="btn create-btn w-100">
+
+                        <span class="btn-text">Create Account</span>
+                        <i class="fa-solid fa-arrow-right ms-2"></i>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+const passwordField =
+document.getElementById("password");
+
+const strengthText =
+document.getElementById("passwordStrength");
+
+passwordField.addEventListener("input", function(){
+
+    let password = passwordField.value;
+
+    if(password.length === 0){
+
+        strengthText.innerHTML = "";
+        return;
+    }
+
+    if(password.length < 8){
+
+        strengthText.style.color = "red";
+        strengthText.innerHTML =
+        "Weak - Minimum 8 characters required";
+    }
+
+    else if(password.length < 12){
+
+        strengthText.style.color = "orange";
+        strengthText.innerHTML =
+        "Medium Password";
+    }
+
+    else{
+
+        strengthText.style.color = "lightgreen";
+        strengthText.innerHTML =
+        "Strong Password";
+    }
+
+});
+const password =
+document.getElementById("password");
+
+const confirmPassword =
+document.getElementById("confirmPassword");
+
+const matchText =
+document.getElementById("passwordMatch");
+
+confirmPassword.addEventListener("input", function(){
+
+    if(confirmPassword.value === ""){
+
+        matchText.innerHTML = "";
+        return;
+    }
+
+    if(password.value === confirmPassword.value){
+
+        matchText.style.color = "lightgreen";
+        matchText.innerHTML =
+        "✓ Passwords Match";
+    }
+
+    else{
+
+        matchText.style.color = "red";
+        matchText.innerHTML =
+        "✗ Passwords Do Not Match";
+    }
+
+});
+function togglePassword(){
+
+    const password =
+    document.getElementById("password");
+
+    const eye =
+    document.getElementById("passwordEye");
+
+    if(password.type === "password"){
+
+        password.type = "text";
+
+        eye.classList.remove("fa-eye");
+        eye.classList.add("fa-eye-slash");
+
+    }
+
+    else{
+
+        password.type = "password";
+
+        eye.classList.remove("fa-eye-slash");
+        eye.classList.add("fa-eye");
+
+    }
+
+}
+document.getElementById("registerForm")
+.addEventListener("submit", function(e){
+
+    let password =
+    document.getElementById("password").value;
+
+    let confirmPassword =
+    document.getElementById("confirmPassword").value;
+
+    if(password.length < 8){
+
+        alert(
+        "Password must be at least 8 characters long."
+        );
+
+        e.preventDefault();
+        return;
+    }
+
+    if(password !== confirmPassword){
+
+        alert(
+        "Passwords do not match."
+        );
+
+        e.preventDefault();
+    }
+
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+/* Loaded alongside index.css on the Contact page.
+   Reuses shared tokens, nav, section, and footer styles —
+   this file only adds what the contact form/layout needs. */
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:40px;
+    align-items:start;
+}
+
+/* =====================================================
+   FORM CARD
+===================================================== */
+
+.contact-form-card{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:24px;
+    padding:44px;
+}
+
+.contact-form-card h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.contact-form-card > p{
+    color:var(--muted);
+    font-size:14.5px;
+    margin-bottom:30px;
+}
+
+.contact-field{
+    margin-bottom:22px;
+}
+
+.contact-field label{
+    display:block;
+    color:#c7d3ec;
+    font-size:14px;
+    font-weight:500;
+    margin-bottom:8px;
+}
+
+.contact-field input,
+.contact-field textarea{
+    width:100%;
+    background:var(--input);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+    padding:14px 16px;
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    outline:none;
+    transition:.25s;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder{
+    color:#5f7692;
+}
+
+.contact-field input:focus,
+.contact-field textarea:focus{
+    border-color:var(--green);
+    background:#0c1626;
+}
+
+.contact-field textarea{
+    resize:vertical;
+    min-height:140px;
+}
+
+.contact-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.contact-submit{
+    background:var(--green);
+    color:#031423;
+    font-weight:700;
+    font-size:16px;
+    padding:16px 30px;
+    border:none;
+    border-radius:12px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.contact-submit:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 30px rgba(52,211,153,.28);
+}
+
+.contact-alert{
+    padding:14px 18px;
+    border-radius:12px;
+    margin-bottom:26px;
+    font-size:14.5px;
+}
+
+.contact-alert.success{
+    background:#10291F;
+    color:var(--green-light);
+    border:1px solid rgba(52,211,153,.25);
+}
+
+.contact-alert.danger{
+    background:#2a1414;
+    color:var(--red);
+    border:1px solid rgba(248,113,113,.25);
+}
+
+/* =====================================================
+   INFO SIDE
+===================================================== */
+
+.contact-info-card{
+    background:linear-gradient(160deg,#0f1d35,#0a1626);
+    border:1px solid rgba(52,211,153,.15);
+    border-radius:24px;
+    padding:38px;
+    margin-bottom:20px;
+}
+
+.contact-info-card h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.contact-info-card p{
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.7;
+}
+
+.contact-info-list{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:24px;
+    padding:10px;
+}
+
+.contact-info-row{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    padding:20px;
+    border-radius:16px;
+    transition:.2s;
+}
+
+.contact-info-row:hover{
+    background:rgba(255,255,255,.02);
+}
+
+.contact-info-row + .contact-info-row{
+    border-top:1px solid rgba(255,255,255,.05);
+}
+
+.contact-info-icon{
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    background:rgba(52,211,153,.12);
+    color:var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-size:16px;
+}
+
+.contact-info-row h5{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:15px;
+    margin-bottom:4px;
+}
+
+.contact-info-row span{
+    color:var(--muted);
+    font-size:13.5px;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:991px){
+
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .contact-form-card{
+        padding:30px;
+    }
+
+    .contact-row{
+        grid-template-columns:1fr;
+    }
+
+}

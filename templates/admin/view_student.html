@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPilot | {{ student.full_name }}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+    <style>
+        .avatar-wrap{
+            width:110px;
+            height:110px;
+            border-radius:50%;
+            overflow:hidden;
+            margin:0 auto 15px;
+            border:3px solid rgba(52,211,153,.35);
+            background:#0f1929;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .avatar-wrap img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+        .avatar-wrap i{
+            font-size:42px;
+            color:#4f6b91;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    {% include "admin/_sidebar.html" %}
+
+    <main class="main-content">
+
+        <div class="top-header d-flex justify-content-between align-items-center">
+
+            <div>
+                <h2>Student Profile</h2>
+                <p>Viewing details for {{ student.full_name }}.</p>
+            </div>
+
+            <a href="/admin/students" class="btn"
+               style="background:transparent; border:1px solid rgba(255,255,255,.15); color:var(--text);">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Students
+            </a>
+
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="row g-4">
+
+            <!-- LEFT: IDENTITY + ACADEMIC -->
+
+            <div class="col-lg-4">
+
+                <div class="dashboard-card text-center">
+
+                    <div class="avatar-wrap">
+
+                        {% if student.profile_picture %}
+                            <img src="{{ url_for('static', filename='uploads/profile_pics/' + student.profile_picture) }}"
+                                 alt="Profile picture">
+                        {% else %}
+                            <i class="fa-solid fa-user"></i>
+                        {% endif %}
+
+                    </div>
+
+                    <h5>{{ student.full_name }}</h5>
+                    <p class="text-secondary">{{ student.email }}</p>
+
+                    <a href="/admin/delete-student/{{ student.user_id }}"
+                       class="btn w-100"
+                       style="background:rgba(248,113,113,.12); color:var(--red); border:1px solid rgba(248,113,113,.3);"
+                       onclick="return confirm('Delete {{ student.full_name }}\'s account? This permanently removes their profile, skills, roadmap, and resume record.');">
+                        <i class="fa-solid fa-trash"></i>
+                        Delete Account
+                    </a>
+
+                </div>
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Academic Details
+                    </div>
+
+                    <div class="info-row">
+                        <span>University</span>
+                        <strong>{{ student.university or "Not set" }}</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Degree</span>
+                        <strong>{{ student.degree or "Not set" }}</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Year of Study</span>
+                        <strong>
+                            {% if student.years_of_study %}
+                                Year {{ student.years_of_study }}
+                            {% else %}
+                                Not set
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Target Career</span>
+                        <strong>
+                            {% if student.career_name %}
+                                {{ student.career_name }}
+                            {% else %}
+                                Not selected
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Joined</span>
+                        <strong>{{ student.created_at }}</strong>
+                    </div>
+
+                </div>
+
+                {% if student.bio %}
+
+                <div class="dashboard-card">
+                    <div class="card-header-custom">Bio</div>
+                    <p class="text-white mb-0">{{ student.bio }}</p>
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            <!-- RIGHT: MATCH, SKILLS, ROADMAP, RESUME -->
+
+            <div class="col-lg-8">
+
+                {% if student.career_name %}
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Career Match: {{ student.career_name }}
+                    </div>
+
+                    <div class="match-container">
+
+                        <div class="progress-ring">
+
+                            <svg width="150" height="150">
+                                <circle class="ring-bg" cx="75" cy="75" r="58"></circle>
+                                <circle class="ring-progress" cx="75" cy="75" r="58"
+                                        style="stroke-dasharray:364; stroke-dashoffset: calc(364 - (364 * {{ match_percentage }} / 100));">
+                                </circle>
+                            </svg>
+
+                            <div class="ring-text" style="font-size:24px;">{{ match_percentage }}%</div>
+
+                        </div>
+
+                        {% if missing_skills %}
+                        <p class="match-description">
+                            Missing: {{ missing_skills|map(attribute="skill_name")|join(", ") }}
+                        </p>
+                        {% else %}
+                        <p class="match-description" style="color:var(--green-light);">
+                            Has all required skills for this career.
+                        </p>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Skills ({{ skills|length }})
+                    </div>
+
+                    {% if skills %}
+
+                        <div>
+                            {% for skill in skills %}
+                            <span class="badge me-1 mb-2" style="background:rgba(96,165,250,.15); color:var(--blue);">
+                                {{ skill.skill_name }}
+                                {% if skill.proficiency_level %}
+                                    &middot; {{ skill.proficiency_level }}
+                                {% endif %}
+                            </span>
+                            {% endfor %}
+                        </div>
+
+                    {% else %}
+
+                        <p class="text-secondary mb-0">No skills added yet.</p>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Learning Roadmap ({{ roadmap|length }} step{{ "s" if roadmap|length != 1 }})
+                    </div>
+
+                    {% if roadmap %}
+
+                        <table class="admin-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Step</th>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                {% for step in roadmap %}
+
+                                <tr>
+                                    <td>{{ step.step_no }}</td>
+                                    <td>{{ step.title }}</td>
+                                    <td>
+                                        <span class="badge
+                                            {% if step.status == 'Completed' %}
+                                                bg-success
+                                            {% elif step.status == 'In Progress' %}
+                                                bg-warning text-dark
+                                            {% else %}
+                                                bg-secondary
+                                            {% endif %}
+                                        ">
+                                            {{ step.status }}
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    {% else %}
+
+                        <p class="text-secondary mb-0">No roadmap generated yet.</p>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Resume
+                    </div>
+
+                    {% if resume %}
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <div>
+                                <i class="fa-solid fa-file-pdf text-danger"></i>
+                                {{ resume.file_name }}
+                                <div class="text-secondary" style="font-size:13px;">
+                                    Uploaded {{ resume.update_date }}
+                                </div>
+                            </div>
+
+                            <a href="/uploads/resumes/{{ resume.file_name }}"
+                               target="_blank"
+                               class="btn action-btn btn-sm">
+                                View
+                            </a>
+
+                        </div>
+
+                    {% else %}
+
+                        <p class="text-secondary mb-0">No resume uploaded.</p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

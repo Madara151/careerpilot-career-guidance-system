@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPilot | Admin Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    {% include "admin/_sidebar.html" %}
+
+    <main class="main-content">
+
+        <div class="top-header">
+            <h2>Admin Dashboard</h2>
+            <p>Platform overview and activity at a glance.</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- TOP STATS -->
+
+        <div class="row g-4 mb-1">
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-box stat-green">
+                    <h2>{{ total_students }}</h2>
+                    <p>Total Students</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-box stat-blue">
+                    <h2>{{ total_careers }}</h2>
+                    <p>Career Paths</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-box stat-purple">
+                    <h2>{{ total_skills }}</h2>
+                    <p>Tracked Skills</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-box stat-red">
+                    <h2>{{ total_courses }}</h2>
+                    <p>Courses Listed</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row g-4 mt-2">
+
+            <!-- RECENT STUDENTS -->
+
+            <div class="col-lg-7">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+
+                        Recently Registered Students
+
+                        <a href="/admin/students">View All</a>
+
+                    </div>
+
+                    {% if recent_students %}
+
+                        <table class="admin-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>University</th>
+                                    <th>Target Career</th>
+                                    <th>Joined</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                {% for student in recent_students %}
+
+                                <tr>
+                                    <td>
+                                        <div>{{ student.full_name }}</div>
+                                        <small class="text-secondary">{{ student.email }}</small>
+                                    </td>
+                                    <td>{{ student.university or "—" }}</td>
+                                    <td>
+                                        {% if student.career_name %}
+                                            {{ student.career_name }}
+                                        {% else %}
+                                            <span class="text-secondary">Not selected</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-secondary">{{ student.created_at }}</td>
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    {% else %}
+
+                        <div class="empty-state">
+                            <i class="fa-solid fa-user-graduate"></i>
+                            <p>No students have registered yet.</p>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- POPULAR CAREERS -->
+
+            <div class="col-lg-5">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Most Targeted Careers
+                    </div>
+
+                    {% if popular_careers %}
+
+                        {% for career in popular_careers %}
+
+                        <div class="popularity-row">
+
+                            <div class="popularity-label">
+                                <span>{{ career.career_name }}</span>
+                                <span>{{ career.student_count }} student{{ "s" if career.student_count != 1 }}</span>
+                            </div>
+
+                            <div class="popularity-bar-bg">
+                                <div class="popularity-bar-fill"
+                                     style="width: {{ (career.student_count / max_popular_count * 100) if max_popular_count > 0 else 0 }}%;">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-state">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <p>No careers added yet.</p>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+                        Platform Roadmap Completion
+                    </div>
+
+                    <div class="match-container">
+
+                        <div class="progress-ring">
+
+                            <svg width="160" height="160">
+                                <circle class="ring-bg" cx="80" cy="80" r="62"></circle>
+                                <circle class="ring-progress" cx="80" cy="80" r="62"
+                                        style="stroke-dasharray:390; stroke-dashoffset: calc(390 - (390 * {{ overall_completion }} / 100));">
+                                </circle>
+                            </svg>
+
+                            <div class="ring-text" style="font-size:26px;">{{ overall_completion }}%</div>
+
+                        </div>
+
+                        <p class="match-description">
+                            Average roadmap step completion across all students.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="dashboard-card mt-4">
+
+            <div class="card-header-custom">
+                Quick Actions
+            </div>
+
+            <div class="actions-grid">
+
+                <a href="/admin/add-career" class="action-tile">
+                    <i class="fa-solid fa-briefcase"></i>
+                    Add New Career
+                </a>
+
+                <a href="/admin/add-skill" class="action-tile">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Add New Skill
+                </a>
+
+                <a href="/admin/add-course" class="action-tile">
+                    <i class="fa-solid fa-book-open"></i>
+                    Add New Course
+                </a>
+
+                <a href="/admin/reports" class="action-tile">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    View Reports
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

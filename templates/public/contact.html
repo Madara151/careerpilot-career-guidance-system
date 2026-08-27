@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | CareerPilot</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
+</head>
+
+<body>
+
+<div class="ambient-grid"></div>
+<div class="ambient-glow glow-green"></div>
+<div class="ambient-glow glow-purple"></div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+
+        <div class="nav-logo">
+            <i class="fa-solid fa-compass"></i>
+            <span>CareerPilot</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="/#features">Features</a>
+            <a href="/#how-it-works">How It Works</a>
+            <a href="/#careers">Careers</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+
+        <div class="nav-actions">
+            <a href="/login" class="btn-nav-login">Sign In</a>
+            <a href="/register" class="btn-nav-register">Get Started</a>
+        </div>
+
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+
+<header class="page-header container">
+
+    <div class="section-eyebrow" style="justify-content:center; display:flex;">
+        <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:8px;"></span>
+        GET IN TOUCH
+    </div>
+
+    <h1>Questions, feedback, or found a bug?</h1>
+
+    <p>
+        Whether it's a suggestion, an issue with your account, or just feedback
+        on the project — send it over and we'll get back to you.
+    </p>
+
+</header>
+
+<!-- CONTACT SECTION -->
+
+<section class="section" style="padding-top:20px;">
+    <div class="container">
+
+        <div class="contact-grid">
+
+            <!-- FORM -->
+
+            <div class="contact-form-card reveal">
+
+                <h3>Send a message</h3>
+                <p>Fill out the form and we'll respond as soon as we can.</p>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="contact-alert {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <form method="POST">
+
+                    <div class="contact-row">
+
+                        <div class="contact-field">
+                            <label for="full_name">Full Name</label>
+                            <input type="text"
+                                   id="full_name"
+                                   name="full_name"
+                                   placeholder="Your name"
+                                   required>
+                        </div>
+
+                        <div class="contact-field">
+                            <label for="email">Email Address</label>
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   placeholder="you@example.com"
+                                   required>
+                        </div>
+
+                    </div>
+
+                    <div class="contact-field">
+                        <label for="subject">Subject</label>
+                        <input type="text"
+                               id="subject"
+                               name="subject"
+                               placeholder="What's this about?">
+                    </div>
+
+                    <div class="contact-field">
+                        <label for="message">Message</label>
+                        <textarea id="message"
+                                  name="message"
+                                  placeholder="Tell us what's on your mind..."
+                                  required></textarea>
+                    </div>
+
+                    <button type="submit" class="contact-submit">
+                        Send Message
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- INFO SIDE -->
+
+            <div class="reveal">
+
+                <div class="contact-info-card">
+                    <h4>Building something on top of CareerPilot?</h4>
+                    <p>
+                        This is a student project, always evolving. If you're
+                        exploring the codebase or extending it for your own
+                        work, we'd love to hear what you're building.
+                    </p>
+                </div>
+
+                <div class="contact-info-list">
+
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <h5>Email</h5>
+                            <span>support@careerpilot.app</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div>
+                            <h5>Response Time</h5>
+                            <span>Usually within 1&ndash;2 business days</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa-solid fa-circle-question"></i></div>
+                        <div>
+                            <h5>Looking for support?</h5>
+                            <span>Check your dashboard settings first</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer class="site-footer">
+    <div class="container">
+
+        <div class="footer-top">
+
+            <div class="nav-logo">
+                <i class="fa-solid fa-compass"></i>
+                <span>CareerPilot</span>
+            </div>
+
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a href="/login">Sign In</a>
+                <a href="/register">Register</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2026 CareerPilot. Built for students, by students.
+        </div>
+
+    </div>
+</footer>
+
+<script>
+
+    // ---- Sticky navbar background on scroll ----
+    const navbar = document.getElementById("navbar");
+
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 30) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+
+    // ---- Scroll-reveal ----
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealEls = document.querySelectorAll(".reveal");
+
+    if (prefersReducedMotion) {
+
+        revealEls.forEach(function (el) {
+            el.classList.add("in-view");
+        });
+
+    } else {
+
+        const revealObserver = new IntersectionObserver(function (entries) {
+
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("in-view");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+
+        }, { threshold: 0.15 });
+
+        revealEls.forEach(function (el) {
+            revealObserver.observe(el);
+        });
+
+    }
+
+</script>
+
+</body>
+</html>

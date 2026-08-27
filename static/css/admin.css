@@ -1,0 +1,145 @@
+/* Loaded alongside dashboard.css on all admin pages.
+   Keeps the same dark theme + CSS variables, adds pieces
+   admin pages need that student pages don't: data tables,
+   form inputs, and an admin badge in the sidebar logo. */
+
+.admin-tag{
+    background:rgba(192,132,252,.15);
+    color:var(--purple);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1px;
+    padding:3px 8px;
+    border-radius:6px;
+    margin-left:8px;
+    vertical-align:middle;
+}
+
+/* =========================
+   DATA TABLES
+========================= */
+
+.admin-table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+}
+
+.admin-table thead th{
+    text-align:left;
+    color:var(--muted);
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    padding:12px 16px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.admin-table tbody td{
+    padding:16px;
+    color:var(--text);
+    border-bottom:1px solid rgba(255,255,255,.05);
+    vertical-align:middle;
+}
+
+.admin-table tbody tr:hover{
+    background:rgba(255,255,255,.02);
+}
+
+.admin-table tbody tr:last-child td{
+    border-bottom:none;
+}
+
+/* =========================
+   FORM FIELDS (dark inputs)
+========================= */
+
+.form-control-dark,
+select.form-control-dark,
+textarea.form-control-dark{
+    background:var(--input);
+    color:var(--text);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;
+}
+
+.form-control-dark:focus{
+    background:var(--input);
+    color:var(--text);
+    border-color:var(--green);
+    box-shadow:none;
+}
+
+.form-control-dark::placeholder{
+    color:#5f7692;
+}
+
+label.form-label{
+    color:var(--muted);
+    margin-bottom:8px;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.btn-icon-sm{
+    width:34px;
+    height:34px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,.08);
+    color:var(--text);
+    background:#0f1929;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.btn-icon-sm:hover{
+    border-color:var(--green);
+    color:var(--green);
+}
+
+.btn-icon-sm.danger:hover{
+    border-color:var(--red);
+    color:var(--red);
+}
+
+/* =========================
+   POPULARITY / DISTRIBUTION BARS
+========================= */
+
+.popularity-row{
+    margin-bottom:16px;
+}
+
+.popularity-label{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:6px;
+    font-size:14px;
+}
+
+.popularity-label span:first-child{
+    color:var(--text);
+}
+
+.popularity-label span:last-child{
+    color:var(--muted);
+}
+
+.popularity-bar-bg{
+    background:#0f1929;
+    border-radius:20px;
+    height:10px;
+    overflow:hidden;
+}
+
+.popularity-bar-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--green), var(--green-light));
+    border-radius:20px;
+    transition:width .6s ease;
+}

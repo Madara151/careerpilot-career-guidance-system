@@ -1,0 +1,211 @@
+/* Loaded alongside index.css on the About page.
+   Reuses all shared tokens, nav, hero-actions, section, page-header,
+   feature-card, cta-banner, and footer styles from index.css —
+   this file only adds what About needs beyond that. */
+
+/* =====================================================
+   MISSION QUOTE
+===================================================== */
+
+.mission-quote{
+    position:relative;
+    z-index:1;
+    max-width:820px;
+    margin:0 auto;
+    padding:0 32px;
+    text-align:center;
+}
+
+.mission-quote blockquote{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:30px;
+    line-height:1.5;
+    font-weight:600;
+    color:var(--text);
+}
+
+.mission-quote blockquote .accent{
+    color:var(--green);
+}
+
+.mission-quote cite{
+    display:block;
+    margin-top:24px;
+    font-style:normal;
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* =====================================================
+   PROBLEM / APPROACH (two-column comparison)
+===================================================== */
+
+.approach-grid{
+    margin-top:56px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+}
+
+.approach-card{
+    border-radius:20px;
+    padding:32px;
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.approach-card.old{
+    background:var(--card);
+}
+
+.approach-card.new{
+    background:linear-gradient(160deg,#0f1d35,#0a1626);
+    border-color:rgba(52,211,153,.2);
+}
+
+.approach-tag{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    padding:5px 12px;
+    border-radius:30px;
+    margin-bottom:18px;
+}
+
+.approach-card.old .approach-tag{
+    background:rgba(248,113,113,.12);
+    color:var(--red);
+}
+
+.approach-card.new .approach-tag{
+    background:rgba(52,211,153,.15);
+    color:var(--green-light);
+}
+
+.approach-card h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:19px;
+    margin-bottom:16px;
+}
+
+.approach-card ul{
+    list-style:none;
+}
+
+.approach-card li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:14px;
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.6;
+}
+
+.approach-card.old li i{
+    color:var(--red);
+    margin-top:3px;
+}
+
+.approach-card.new li i{
+    color:var(--green);
+    margin-top:3px;
+}
+
+/* =====================================================
+   VALUES GRID
+===================================================== */
+
+.values-grid{
+    margin-top:56px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.value-card{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:20px;
+    padding:30px 26px;
+    transition:.3s;
+}
+
+.value-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(96,165,250,.3);
+}
+
+.value-number{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:14px;
+    color:var(--blue);
+    font-weight:700;
+    letter-spacing:1px;
+    margin-bottom:16px;
+}
+
+.value-card h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:18px;
+    margin-bottom:10px;
+}
+
+.value-card p{
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.7;
+}
+
+/* =====================================================
+   TECH STACK STRIP
+===================================================== */
+
+.stack-strip{
+    margin-top:56px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:center;
+}
+
+.stack-pill{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--input);
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:30px;
+    padding:10px 18px;
+    font-size:13.5px;
+    color:var(--muted);
+}
+
+.stack-pill i{
+    color:var(--green);
+    font-size:13px;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:991px){
+
+    .page-header h1{
+        font-size:34px;
+    }
+
+    .mission-quote blockquote{
+        font-size:24px;
+    }
+
+    .approach-grid{
+        grid-template-columns:1fr;
+    }
+
+    .values-grid{
+        grid-template-columns:1fr;
+    }
+
+}

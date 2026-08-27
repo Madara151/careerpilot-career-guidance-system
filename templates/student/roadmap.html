@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPilot | Learning Roadmap</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    {% include "student/_sidebar.html" %}
+
+    <main class="main-content">
+
+        <div class="top-header">
+            <h2>My Learning Roadmap</h2>
+            <p>
+                {% if profile.career_name %}
+                    Your step-by-step path to becoming a <strong>{{ profile.career_name }}</strong>.
+                {% else %}
+                    Select a target career to generate your roadmap.
+                {% endif %}
+            </p>
+        </div>
+
+        {% if roadmap %}
+
+            <div class="dashboard-card">
+
+                {% for step in roadmap %}
+
+                <div class="roadmap-step">
+
+                    <div class="step-number">
+                        {{ step.step_no }}
+                    </div>
+
+                    <div class="step-content">
+
+                        <h5>{{ step.title }}</h5>
+                        <p style="color: white;">{{ step.description }}</p>
+
+                        <span class="badge
+                            {% if step.status == 'Completed' %}
+                                bg-success
+                            {% elif step.status == 'In Progress' %}
+                                bg-warning text-dark
+                            {% else %}
+                                bg-secondary
+                            {% endif %}
+                        ">
+                            {{ step.status }}
+                        </span>
+
+                        <div class="mt-3">
+
+                            {% if step.status == "Not Started" %}
+
+                                <a href="/student/start-roadmap/{{ step.roadmap_id }}"
+                                   class="btn action-btn btn-sm">
+                                    Start Learning
+                                </a>
+
+                            {% elif step.status == "In Progress" %}
+
+                                <a href="/student/complete-roadmap/{{ step.roadmap_id }}"
+                                   class="btn action-btn btn-sm">
+                                    Mark as Completed
+                                </a>
+
+                            {% else %}
+
+                                <span style="color:var(--green); font-weight:600;">
+                                    <i class="fa-solid fa-circle-check"></i> Completed
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="dashboard-card empty-state">
+                <i class="fa-solid fa-road"></i>
+                <p>No roadmap yet. Select a target career to generate one.</p>
+                <a href="/student/career-selection" class="btn action-btn">Select Career</a>
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</div>
+
+</body>
+</html>
